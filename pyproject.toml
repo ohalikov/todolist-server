@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "next-level-list-api-server"
+version = "0.1.0"
+description = ""
+authors = ["Олег Халиков <o.halikov@ocas.ai>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+fastapi = {extras = ["all"], version = "^0.104.1"}
+uvicorn = {extras = ["standard"], version = "^0.23.2"}
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+my-script = "poetry run python3 -V"
