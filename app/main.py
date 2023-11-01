@@ -57,9 +57,9 @@ def update_todo(todo_id: UUID, todo: Todo):
 
 @app.delete("/todos/{todo_id}")
 def delete_todo(todo_id: UUID):
-    todo = todos[todo_id]
+    todo = str(todos[todo_id])
     del todos[todo_id]
-    return {'message': f"Item {{todo}} deleted"}
+    return {'message': f'Item { {todo} } deleted'}
 
 
 if __name__ == "__main__": 
