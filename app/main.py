@@ -42,7 +42,7 @@ def read_todos():
     return todos
 
 
-@app.post("/todos")
+@app.post("/todos", response_model=Todo)
 def create_todo(todo: Todo):
     todo_id = uuid4()
     todos[todo_id] = todo
