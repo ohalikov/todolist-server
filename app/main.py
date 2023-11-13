@@ -37,6 +37,7 @@ app = FastAPI(debug=True)
 
 todos = {}
 
+
 @app.get("/todos")
 def read_todos():
     return todos
