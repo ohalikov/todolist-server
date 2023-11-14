@@ -1,4 +1,4 @@
 {
-    "python.defaultInterpreterPath": "PYTHONPATH",
-    "python.terminal.activateEnvironment": true
+  "python.defaultInterpreterPath": "./venv/bin/python3.10",
+  "python.terminal.activateEnvironment": true
 }
