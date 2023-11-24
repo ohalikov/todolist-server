@@ -17,6 +17,18 @@ services:
       - ./:/home/app  
     networks:  
       - my-net  
+    command: 
+     [
+      "poetry",
+      "run",
+      "uvicorn",
+      "--host",
+      "0.0.0.0",
+      "--port",
+      "8000",
+      "app.main:app",
+      "--reload",
+      ]
   
   db_postgres:  
     image: postgres:15.3-alpine  
