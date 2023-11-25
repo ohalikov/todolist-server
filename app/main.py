@@ -1,14 +1,7 @@
-from typing import Union, List
-import uvicorn
 from fastapi import FastAPI
-from pydantic import BaseModel, Field
-from uuid import UUID, uuid4
-
-class Todo(BaseModel):
-    # id: UUID = Field(default_factory=uuid4)
-    text: str
-    completed: bool
-
+from fastapi.middleware.cors import CORSMiddleware
+from app.config import settings
+from app.routers import user, auth, todo
 
 app = FastAPI(debug=True)
 
@@ -35,35 +28,28 @@ app = FastAPI(debug=True)
 #         },
 #       ]
 
-todos = {}
+origins = [
+    settings.CLIENT_ORIGIN,
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+app.include_router(auth.router, tags=['Auth'], prefix='/api/auth')
+app.include_router(user.router, tags=['Users'], prefix='/api/users')
+app.include_router(todo.router, tags=['Todos'], prefix='/api/todos')
 
 
-@app.get("/todos")
-def read_todos():
-    return todos
+@app.get('/api/healthchecker')
+def root():
+    return {'message': 'Hello World'}
 
-
-@app.post("/todos", response_model=Todo)
-def create_todo(todo: Todo):
-    todo_id = uuid4()
-    todos[todo_id] = todo
-    return todo
-
-
-@app.put("/todos/{todo_id}")
-def update_todo(todo_id: UUID, todo: Todo):
-    todos[todo_id] = todo
-    return todo
-
-
-@app.delete("/todos/{todo_id}")
-def delete_todo(todo_id: UUID):
-    todo = str(todos[todo_id])
-    del todos[todo_id]
-    return {'message': f'Item { {todo} } deleted'}
-
-
-if __name__ == "__main__": 
-    config = uvicorn.Config("main:app", port=5000, log_level="debug", reload=True)
-    server = uvicorn.Server(config)
-    server.run()
+# if __name__ == "__main__": 
+#     config = uvicorn.Config("main:app", port=5000, log_level="debug", reload=True)
+#     server = uvicorn.Server(config)
+#     server.run()
