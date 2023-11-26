@@ -31,7 +31,9 @@ async def create_user(payload: schemas.CreateUserSchema, request: Request,
     # Compare password and passwordConfirm
     if payload.password != payload.passwordConfirm:
         raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST, detail='Passwords do not match')
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail='Passwords do not match'
+            )
     #  Hash the password
     payload.password = utils.hash_password(payload.password)
     del payload.passwordConfirm
@@ -50,7 +52,11 @@ async def create_user(payload: schemas.CreateUserSchema, request: Request,
         hashedCode.update(token)
         verification_code = hashedCode.hexdigest()
         user_query.update(
-            {'verification_code': verification_code}, synchronize_session=False)
+            {
+                'verification_code': verification_code
+            },
+            synchronize_session=False
+        )
         db.commit()
         url = f"{request.url.scheme}://{request.client.host}:{request.url.port}/api/auth/verifyemail/{token.hex()}"
         await Email(new_user, url, [payload.email]).sendVerificationCode()
@@ -61,7 +67,10 @@ async def create_user(payload: schemas.CreateUserSchema, request: Request,
         db.commit()
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail='There was an error sending email')
-    return {'status': 'success', 'message': 'Verification token successfully sent to your email'}
+    return {
+        'status': 'success', 
+        'message': 'Verification token successfully sent to your email'
+        }
 
 
 @router.post('/login')

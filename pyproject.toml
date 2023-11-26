@@ -13,6 +13,8 @@ pydantic = "^2.4.2"
 sqlalchemy = "^2.0.22"
 alembic = "^1.12.1"
 psycopg2-binary = "^2.9.9"
+pydantic-settings = "^2.1.0"
+fastapi-jwt-auth = "^0.5.0"
 
 [build-system]
 requires = ["poetry-core"]

@@ -1,7 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.config import settings
-from app.routers import user, auth, todo
+from app.routers import todo
+# from app.routers import user, authtodo
 
 app = FastAPI(debug=True)
 
@@ -40,8 +41,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(auth.router, tags=['Auth'], prefix='/api/auth')
-app.include_router(user.router, tags=['Users'], prefix='/api/users')
+# app.include_router(auth.router, tags=['Auth'], prefix='/api/auth')
+# app.include_router(user.router, tags=['Users'], prefix='/api/users')
 app.include_router(todo.router, tags=['Todos'], prefix='/api/todos')
 
 

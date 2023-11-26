@@ -37,9 +37,9 @@ class FilteredUserResponse(UserBaseSchema):
 
 
 class TodoBaseSchema(BaseModel):
-    text: str
+    todo_text: str
     completed: bool
-    user_id: uuid.UUID | None = None
+    # user_id: uuid.UUID | None = None
 
     class Config:
         orm_mode = True
@@ -61,7 +61,7 @@ class UpdateTodoSchema(BaseModel):
     content: str
     category: str
     image: str
-    user_id: uuid.UUID | None = None
+    # user_id: uuid.UUID | None = None
     created_at: datetime | None = None
     updated_at: datetime | None = None
 
