@@ -47,9 +47,9 @@ class TodoBaseSchema(BaseModel):
 
 class TodoResponse(TodoBaseSchema):
     id: uuid.UUID
-    user: FilteredUserResponse
     created_at: datetime
     updated_at: datetime
+    # user: FilteredUserResponse
 
 
 class CreateTodoSchema(TodoBaseSchema):

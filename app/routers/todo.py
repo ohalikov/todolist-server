@@ -31,7 +31,7 @@ def get_todos(
     skip = (page - 1) * limit
 
     todos = db.query(models.Todo).group_by(models.Todo.id).filter(
-        models.Todo.text.contains(search)).limit(limit).offset(skip).all()
+        models.Todo.todo_text.contains(search)).limit(limit).offset(skip).all()
     return {
         'status': 'success',
         'results': len(todos),
@@ -51,13 +51,16 @@ def get_todos(
 #     db.commit()
 #     db.refresh(new_todo)
 @router.post('/', status_code=status.HTTP_201_CREATED,
-             response_model=schemas.TodoResponse)
+             response_model=schemas.TodoResponse,
+             response_model_exclude_unset=True
+             )
 def create_todo(todo: schemas.CreateTodoSchema,
                 db: Session = Depends(get_db)):
     new_todo = models.Todo(**todo.model_dump())
     db.add(new_todo)
     db.commit()
     db.refresh(new_todo)
+    return new_todo
 
 
 # Update Todo
