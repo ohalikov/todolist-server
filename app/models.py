@@ -23,7 +23,7 @@ class User(Base):
 
 
 class Todo(Base):
-    __tablename__ = 'todos'
+    __tablename__ = 'my_todos'
     id = Column(UUID(as_uuid=True), primary_key=True, nullable=False,
                 default=uuid.uuid4())
     todo_text = Column(String, nullable=False)
