@@ -11,7 +11,8 @@ class UserBaseSchema(BaseModel):
     photo: str
 
     class Config:
-        orm_mode = True
+        # orm_mode = True
+        from_attributes = True
 
 
 class CreateUserSchema(UserBaseSchema):
@@ -42,7 +43,7 @@ class TodoBaseSchema(BaseModel):
     # user_id: uuid.UUID | None = None
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class TodoResponse(TodoBaseSchema):
@@ -66,7 +67,7 @@ class UpdateTodoSchema(BaseModel):
     updated_at: datetime | None = None
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class ListTodoResponse(BaseModel):
